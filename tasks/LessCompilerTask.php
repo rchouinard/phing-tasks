@@ -69,6 +69,8 @@ class LessCompilerTask extends Task
      */
     public function main()
     {
+        $this->_checkTargetDir();
+
         /* @var $fileSet FileSet */
         foreach ($this->_fileSets as $fileSet) {
 
@@ -125,6 +127,19 @@ class LessCompilerTask extends Task
     public function setTargetDir(PhingFile $path)
     {
         $this->_targetDir = $path;
+    }
+
+    /**
+     * @return void
+     */
+    protected function _checkTargetDir()
+    {
+        if ($this->_targetDir === null) {
+            throw new BuildException(
+                'Target directory must be specified',
+                $this->location
+            );
+        }
     }
 
 }
