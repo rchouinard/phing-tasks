@@ -8,7 +8,31 @@
  */
 
 /**
+ * Defines a Phing task to run the YUI compressor against a set of JavaScript
+ * or CSS files.
  *
+ * A java binary must be available in the environment PATH for this task to
+ * work.
+ *
+ * To use this task, include it with a taskdef tag in your build.xml file:
+ *
+ *     <taskdef name="yuic" classname="my.tasks.YuiCompressorTask" />
+ *
+ * The task is now ready to be used:
+ *
+ *     <target name="yui-compressor" description="Compress CSS and JavaScript">
+ *         <yuic targetdir="path/to/target">
+ *             <fileset dir="path/to/source">
+ *                 <include name="*.css" />
+ *                 <include name="*.js" />
+ *             </fileset>
+ *         </yuic>
+ *     </target>
+ *
+ * This task makes use of the
+ * {@link http://developer.yahoo.com/yui/compressor/ YUI compressor}. Version
+ * 2.4.2 of the compiled jar file is bundled with this task, however a different
+ * jar file may be specified using the optional jarpath attribute.
  */
 class YuiCompressorTask extends Task
 {

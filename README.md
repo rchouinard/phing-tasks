@@ -4,7 +4,7 @@ This project contains a collection of custom tasks and additions to the [Phing](
 
 ## LESS Compiler Task
 
-This custom task utilizes the [lessphp](https://github.com/leafo/lessphp) library by [leafo](https://github.com/leafo) to compile source files written in [LESS](http://lesscss.org) syntax into valid CSS. Usage is very easy. Assuming the task files are unpackaged to `rych/tasks`:
+This task utilizes the [lessphp](https://github.com/leafo/lessphp) library by [leafo](https://github.com/leafo) to compile source files written in [LESS](http://lesscss.org) syntax into valid CSS. Usage is very easy. Assuming the task files are unpackaged to `rych/tasks`:
 
     <taskdef name="lessc" classname="rych.tasks.LessCompilerTask" />
     <target name="compile-less" description="Compile LESS to CSS">
@@ -17,4 +17,38 @@ This custom task utilizes the [lessphp](https://github.com/leafo/lessphp) librar
 
 This block will define the lessc task using the custom task definition, and then define a target to compile all .less files in `path/to/less/sources` to .css files in `path/to/published/css`.
 
-Because this task uses a bundled PHP port of the LESS engine, there is no need to have the LESS Ruby gem, or even Ruby, installed on the build machine. More information abot the bundled library, including potential differences between the PHP and Ruby versions, can be found here: http://leafo.net/lessphp/docs/
+Because this task uses a bundled PHP port of the LESS engine, there is no need to have the LESS Ruby gem, or even Ruby, installed on the build machine. More information abot the bundled library, including potential differences between the PHP and Ruby versions, can be found here: <http://leafo.net/lessphp/docs/>
+
+### Task Attributes
+
+#### Required
+ - **targetdir** - Specifies the directory path for output files.
+
+#### Optional
+_There are no optional attributes for this task._
+
+## YUI Compressor Task
+
+The [YUI compressor](http://developer.yahoo.com/yui/compressor/) is a java tool which can minimize CSS and JavaScript files, saving a few extra bytes. In order to use this task, the `java` executable **must** be available in the environment PATH.
+
+Version 2.4.2 of the YUI compressor is included, however it is possible to specify an alternate jar file if needed.
+
+Usage is simple:
+
+    <taskdef name="yuic" classname="rych.tasks.YuiCompressorTask" />
+    <target name="minimize-assets" description="Compress CSS and JavaScript">
+        <yuic jarpath="jar/yuic.jar" targetdir="path/to/target">
+            <fileset dir="path/to/source">
+                <include name="*.css" />
+                <include name="*.js" />
+            </fileset>
+        </yuic>
+    </target>
+
+### Task Attributes
+
+#### Required
+ - **targetdir** - Specifies the directory path for output files.
+
+#### Optional
+ - **jarpath** - Path to an alternate jar file.
