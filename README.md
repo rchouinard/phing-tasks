@@ -27,6 +27,39 @@ Because this task uses a bundled PHP port of the LESS engine, there is no need t
 #### Optional
 _There are no optional attributes for this task._
 
+## Manifest File Task
+
+A manifest file is simply a text file which contains a listing of files and their hash values. The ManifestFileTask is used to generate and/or verify such a file. This can be useful in ensuring the integrity of your project files.
+
+Phing ships with an undocumented ManifestTask, although I was unsuccessful in getting it to work at all. To avoid conflicts, I've named this one ManifestFileTask instead.
+
+Usage example:
+
+    <taskdef name="manifestfile" classname="rych.tasks.ManifestFileTask" />
+    <target name="generate-manifest" description="Generate a manifest file">
+        <manifestfile file="Manifest">
+            <fileset dir="path/to/source">
+                <include name="*.php" />
+            </fileset>
+        </manifestfile>
+    </target>
+    <target name="verify-manifest" description="Verify a manifest file">
+        <manifestfile file="Manifest" mode="verify">
+            <fileset dir="path/to/source">
+                <include name="*.php" />
+            </fileset>
+        </manifestfile>
+    </target>
+
+### Task Attributes
+
+#### Required
+ - **file** - Specifies path to the manifest file.
+
+#### Optional
+ - **algo** - The hashing algorithm which should be used. Any algorithm supported by PHP's [hash extension](http://php.net/manual/en/function.hash-algos.php) may be used. Defaults to sha256.
+ - **mode** - One of _create_ or _verify_. Default is _create_.
+
 ## YUI Compressor Task
 
 The [YUI compressor](http://developer.yahoo.com/yui/compressor/) is a java tool which can minimize CSS and JavaScript files, saving a few extra bytes. In order to use this task, the `java` executable **must** be available in the environment PATH.
