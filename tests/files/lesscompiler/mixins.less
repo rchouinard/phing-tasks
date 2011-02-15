@@ -1,0 +1,19 @@
+/**
+ * Part of the Phing tasks collection by Ryan Chouinard.
+ *
+ * @author Ryan Chouinard <rchouinard@gmail.com>
+ * @copyright Copyright (c) 2010 Ryan Chouinard
+ * @license New BSD License
+ */
+
+.rounded-corners (@radius: 5px) {
+    border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+}
+#header {
+    .rounded-corners;
+}
+#footer {
+    .rounded-corners(10px);
+}

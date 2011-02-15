@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="lesscompiler" default="">
+
+    <path id="build.classes">
+        <pathelement dir="../../classes" />
+    </path>
+    <taskdef name="lessc" classname="rych.tasks.LessCompilerTask">
+        <classpath refid="build.classes" />
+    </taskdef>
+
+    <target name="main">
+        <lessc targetdir="./tmp">
+            <fileset dir="./lesscompiler">
+                <include name="**/*.less" />
+            </fileset>
+        </lessc>
+    </target>
+
+    <target name="cleanup">
+        <delete>
+            <fileset dir="./tmp">
+                <include name="**/*.css" />
+            </fileset>
+        </delete>
+    </target>
+
+</project>
