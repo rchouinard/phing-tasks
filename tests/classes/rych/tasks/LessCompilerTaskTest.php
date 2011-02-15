@@ -39,7 +39,7 @@ class LessCompilerTaskTest extends BuildFileTest
      */
     public function taskProducesCssFiles()
     {
-        $this->executeTarget('main');
+        $this->executeTarget('compile');
         $this->assertInLogs('Processing functions.less');
         $this->assertInLogs('Processing mixins.less');
         $this->assertInLogs('Processing nested_rules.less');
@@ -49,6 +49,15 @@ class LessCompilerTaskTest extends BuildFileTest
         $this->assertFileExists(PHING_TEST_BASE . '/files/tmp/mixins.css');
         $this->assertFileExists(PHING_TEST_BASE . '/files/tmp/nested_rules.css');
         $this->assertFileExists(PHING_TEST_BASE . '/files/tmp/variables.css');
+    }
+
+    /**
+     * @test
+     * @expectedException BuildException
+     */
+    public function taskWithoutTargetAttributeTriggersBuildException()
+    {
+        $this->executeTarget('compile-without-target');
     }
 
 }

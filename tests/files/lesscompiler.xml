@@ -8,8 +8,16 @@
         <classpath refid="build.classes" />
     </taskdef>
 
-    <target name="main">
+    <target name="compile">
         <lessc targetdir="./tmp">
+            <fileset dir="./lesscompiler">
+                <include name="**/*.less" />
+            </fileset>
+        </lessc>
+    </target>
+
+    <target name="compile-without-target">
+        <lessc>
             <fileset dir="./lesscompiler">
                 <include name="**/*.less" />
             </fileset>
